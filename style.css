@@ -1,0 +1,186 @@
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+*,*:before,*:after {
+    box-sizing: inherit;
+}
+body {
+    font-size: 1.6rem;
+    background-image: url(img/background.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    min-height: 72rem;
+}
+@media (min-width: 760px) {
+    body {
+        min-height: 100rem;
+    }
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 10% 0;
+    user-select:none;
+}
+.header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #00187d;
+}
+@media (min-width: 768px) {
+    .header h1{
+        font-size: 3.5rem;
+    }
+}
+.boton-palabra {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60rem;
+}
+.boton-palabra input {
+    width: 90%;
+    margin: 2rem 0;
+}
+@media (min-width: 760px) {
+    .boton-palabra input {
+        width: 60%;
+    }
+}
+@media (min-width: 920px) {
+    .boton-palabra input {
+        width: 40%;
+    }
+}
+.text-area {
+    border: 2px solid black;
+    background: transparent;
+    font-weight: bold;
+    font-size: 5rem;
+    width: 30rem;
+    height: 8rem;
+    margin-bottom: 2rem;
+}
+#menu-principal {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 0 15%;
+    gap: 4rem;
+    min-height: 60rem;
+    justify-content: center;
+}
+@media (min-width: 750px) {
+    #menu-principal {
+        margin: 0 30%;
+    }
+}
+.boton {
+    padding: 2.5rem;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.boton:hover {
+    transform: scale(1.1);
+}
+.boton-verde {
+    background-color: #00b95d; 
+}
+.boton-azul {
+    background-color: #4b85ff;
+}
+.muñeco {
+    text-align: center;
+}
+.palabra {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem;
+    font-size: 3rem;
+    gap: 1rem;
+}
+.palabra p{
+    padding: 0 0.5rem;
+    border-bottom: 2px solid black;
+    user-select:none;
+    min-width: 3rem;
+    min-height: 3rem;
+}
+.oportunidades {
+    text-align: center;
+    font-size: 3rem;
+    user-select:none;
+}
+.fila {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 1rem;
+}
+.fila div{
+    display: flex;
+    border: 2px solid black;
+    width: 6rem;
+    height: 5rem;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 120, 0,0.7);
+    user-select:none;
+}
+@media (max-width: 767px) {
+    .fila {
+        gap: 1rem;
+        margin: 1rem 5px;
+    }
+    .fila div{
+        width: 2.5rem;
+        height: 3rem;
+    }
+}
+.fila p {
+    font-size: 3rem;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+@media (max-width: 767px) {
+    .fila p {
+        font-size: 1.5rem;
+    }
+}
+.fila div:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+.fila div:active {
+    background-color: green;
+}
+.botones {
+    text-align: center;
+}
+.botones input{
+    margin: 0;
+    width: 40%;
+}
+@media (min-width: 760px) {
+    .botones input {
+        width: 20%;
+    }
+}
+.autor {
+    color: #00bd9b;
+    margin: 1rem 15% 2rem;
+    text-align: center;
+    background-color: rgba(0,0,0,0.4);
+    user-select:none;
+}
+.autor a{
+    color: #79000c;
+    text-decoration: none;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Juego ahorcado</title>
+        <link rel="stylesheet" href="resset.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header class="header">
+            <div>
+                <img src="img/Vector.svg" alt="logo alura">
+            </div>
+            <div>
+                <h1>Juego del Ahorcado</h1>
+            </div>
+        </header>
+        <div class="boton-palabra">
+            <textarea class="text-area" name="palabra" cols="30" rows="10"></textarea>
+            <p>Maximo de 9 letras sin caracteres especiales</p>
+            <input class="boton boton-verde" type="button" value="Agregar palabra" id="nuevaPalabra">
+            <input class="boton boton-azul" type="button" id="volver-agregarPalabra" value="Volver">
+        </div>
+        <div id="menu-principal">
+            <input id="iniciar-juego" class="boton boton-verde" type="button" value="Iniciar juego">
+            <input id="agregar-palabra" class="boton boton-azul" type="button" value="Agregar nueva palabra">
+        </div>
+        <main id="juego">
+            <div class="muñeco">
+                <!--<img src="Group 5.png" alt="imagen">-->
+                <canvas width="290px" height="350"></canvas>
+            </div>
+            <div class="palabra">
+            </div>
+            <div class="oportunidades">
+                0/6
+            </div>
+            <div class="teclado">
+                <!-- Teclado en secuencia a un ordenador y asociado a su letra-->
+                <div class="fila fila-1">
+                    <div data-key="keyq" class="key"><p>Q</p></div>
+                    <div data-key="keyw" class="key"><p>W</p></div>
+                    <div data-key="keye" class="key"><p>E</p></div>
+                    <div data-key="keyr" class="key"><p>R</p></div>
+                    <div data-key="keyt" class="key"><p>T</p></div>
+                    <div data-key="keyy" class="key"><p>Y</p></div>
+                    <div data-key="keyu" class="key"><p>U</p></div>
+                    <div data-key="keyi" class="key"><p>I</p></div>
+                    <div data-key="keyo" class="key"><p>O</p></div>
+                    <div data-key="keyp" class="key"><p>P</p></div>
+                </div>
+                    <div class="fila fila-2">
+                    <div data-key="keya" class="key"><p>A</p></div>
+                    <div data-key="keys" class="key"><p>S</p></div>
+                    <div data-key="keyd" class="key"><p>D</p></div>
+                    <div data-key="keyf" class="key"><p>F</p></div>
+                    <div data-key="keyg" class="key"><p>G</p></div>
+                    <div data-key="keyh" class="key"><p>H</p></div>
+                    <div data-key="keyj" class="key"><p>J</p></div>
+                    <div data-key="keyk" class="key"><p>K</p></div>
+                    <div data-key="keyl" class="key"><p>L</p></div>
+                    <div data-key="keyñ" class="key"><p>Ñ</p></div>
+                </div>
+                    <div class="fila fila-3">
+                    <div data-key="keyz" class="key"><p>Z</p></div>
+                    <div data-key="keyx" class="key"><p>X</p></div>
+                    <div data-key="keyc" class="key"><p>C</p></div>
+                    <div data-key="keyv" class="key"><p>V</p></div>
+                    <div data-key="keyb" class="key"><p>B</p></div>
+                    <div data-key="keyn" class="key"><p>N</p></div>
+                    <div data-key="keym" class="key"><p>M</p></div>
+                </div>
+            </div>
+        <section class="botones">
+            <input class="boton boton-verde" id="nuevoJuego" type="button" value="Nuevo juego">
+            <input class="boton boton-azul" id="desistir" type="button" value="Volver">
+        </section>
+    </main>
+        <footer class="autor">&copy; Desarrollado por <a target="_blank" href="https://github.com/fabiansilvera">Fabian Silvera</a>
+        </footer>
+        <script src="script.js"></script>
+    </body>
+</html>
