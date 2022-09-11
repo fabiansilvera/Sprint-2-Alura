@@ -118,6 +118,12 @@ body {
     font-size: 3rem;
     user-select:none;
 }
+.resultado {
+    text-align: center;
+    font-weight: bold;
+    padding: 2rem;
+    font-size: 3rem;
+}
 .fila {
     display: flex;
     justify-content: center;

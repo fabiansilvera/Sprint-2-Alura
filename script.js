@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function(){
     crearPalabra();
     desistir();
 })
-
 // Variables para canvas
 let pantalla = document.querySelector("canvas");
 let pincel = pantalla.getContext("2d");
@@ -21,15 +20,19 @@ const botonDesistir = document.querySelector("#desistir")
 const volverPalabra = document.querySelector("#volver-agregarPalabra")
 const botonNuevaPalabra = document.querySelector("#agregar-palabra")
 const nuevaPalabra = document.querySelector("#nuevaPalabra"); 
+const resultado = document.querySelector(".resultado")
 
-// Variable de intentos de html y contador
+// Variable de intentos de html y contadores
 let intentos = document.querySelector(".oportunidades");
 let oportunidades = 0;
 
 // variables de la palabra
-const contenedorPalabra = document.querySelector('.palabra');
+const contenedorPalabra = document.querySelector(".palabra");
 let palabras = ["QUESO","ROJO","HABLAR","HIPOTECA"];
 let palabra = randomWord();
+let letrasUsadas = [];
+
+var teclado = document.querySelector(".teclado");
 
 
 // on clicks funciones
@@ -43,6 +46,10 @@ reiniciar.addEventListener ('click' , function() {
     palabra = randomWord();
     contenedorPalabra.innerHTML = "";
     crearPalabra();
+    letrasUsadas = [];
+    oportunidades = 0;
+    intentos.innerHTML = oportunidades + "/6";
+    resultado.innerHTML = ""
 })
 // agregar palabra a la lista
 function agregarPalabra() {
@@ -69,6 +76,7 @@ function desistir() {
 function crearPalabra() {
     for(let i = 0; i < palabra.length; i++) {
         const letra = document.createElement('P');
+        letra.setAttribute("id","letra" + i);
         contenedorPalabra.appendChild(letra);
     }
     console.log(palabra)
@@ -100,11 +108,12 @@ if(pantalla.width == 290 & pantalla.height == 350) {
     pintar(80,40,120,10,"black");  
     pintar(190,50,10,40,"white");
     }
-oportunidades = 0;
 }
 // Errores y conteo de oportunidades
 function error() {
-    oportunidades++;
+    if (oportunidades < 6) {
+        oportunidades++
+    }
       // 1 error
     if(oportunidades == 1) {
         nuevoJuego();
@@ -199,14 +208,50 @@ function error() {
         pincel.fill();
         dibujarCirculo(195,123,9,"black");
     }
-    if(oportunidades > 6) {
-        oportunidades = 6;
-    }
-    intentos.innerHTML = oportunidades + "/6";
 }
 // Palabra random
 function randomWord() {
     return palabras[Math.floor(Math.random() * (palabras.length))];
   }
+  // Accion del teclado
+document.addEventListener('keydown', function (e){
+    let tecla = e.key.toUpperCase();
+    let contador = 0;
+    for (let i = 0; palabra.length > i; i++) {
+        if (palabra[i] == tecla && contador == 0) {
+            contador++;
+            letrasUsadas.push(tecla);
+            arrayLetras(tecla);
+            insertarLetra(tecla);
+            break;
+        }
+    }
+    if (contador == 0) {
+        error();
+        intentos.innerHTML = oportunidades + "/6";
+        if (oportunidades == 6) {
+            resultado.innerHTML = "<p>Perdiste intentalo la proxima tu palabra era " + palabra + "</p>"
+        }
+    }
+})
+function arrayLetras(letra) {
+    if (oportunidades == 6) {
+    } else {
+        for(let i = 0; i < letrasUsadas.length; i++){
+            if (letra == letrasUsadas[i]) {
+            resultado.innerHTML += " " + letra
+            break;
+            }
+    };
+}}
+function insertarLetra(letra) {
+    if (oportunidades == 6) {
 
-
+    } else {
+    for(let i = 0; i < palabra.length; i++) {
+        let letraI = document.querySelector("#letra" + i)
+        if (palabra[i] == letra) {
+            letraI.innerHTML = palabra[i];
+        }
+    }}
+}
