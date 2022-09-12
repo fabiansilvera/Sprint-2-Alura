@@ -30,9 +30,13 @@ let oportunidades = 0;
 const contenedorPalabra = document.querySelector(".palabra");
 let palabras = ["QUESO","ROJO","HABLAR","HIPOTECA"];
 let palabra = randomWord();
-let letrasUsadas = [];
+let letrasUsadas = [];    
+let victoria = false;
 
+// Teclado
 var teclado = document.querySelector(".teclado");
+// Comprobacion de la A a la Z
+const isAZ = RegExp('[A-ZÑa-zñ]');
 
 
 // on clicks funciones
@@ -49,14 +53,14 @@ reiniciar.addEventListener ('click' , function() {
     letrasUsadas = [];
     oportunidades = 0;
     intentos.innerHTML = oportunidades + "/6";
-    resultado.innerHTML = ""
+    resultado.innerHTML = "";
+    victoria = false;
 })
 // agregar palabra a la lista
 function agregarPalabra() {
     let contenido = document.querySelector(".text-area");
     contenidoMayuscula = contenido.value.toUpperCase();
     if (contenidoMayuscula.length > 3 && contenidoMayuscula.length < 10) {
-    console.log(contenidoMayuscula);
     palabras.push(contenidoMayuscula);
     }
     contenido.value = ""
@@ -79,7 +83,6 @@ function crearPalabra() {
         letra.setAttribute("id","letra" + i);
         contenedorPalabra.appendChild(letra);
     }
-    console.log(palabra)
   }
 // Cambiar lo dysplay para ocultar y mostrar menus
 function iniciarJuego() {
@@ -211,22 +214,37 @@ function error() {
 }
 // Palabra random
 function randomWord() {
-    return palabras[Math.floor(Math.random() * (palabras.length))];
+    return palabras[Math.floor(Math.random() * (palabras.length))].toUpperCase();
   }
-  // Accion del teclado
+
+
+// Accion del teclado
 document.addEventListener('keydown', function (e){
     let tecla = e.key.toUpperCase();
     let contador = 0;
+    if (tecla.length > 1 || !isAZ.test(tecla) || victoria == true){ 
+        return;
+    }
+    for (let i = 0; i < letrasUsadas.length; i++) {
+        if (tecla == letrasUsadas[i]) {
+            return;
+        }
+    }
+    arrayLetras(tecla);
     for (let i = 0; palabra.length > i; i++) {
         if (palabra[i] == tecla && contador == 0) {
             contador++;
             letrasUsadas.push(tecla);
-            arrayLetras(tecla);
             insertarLetra(tecla);
             break;
         }
     }
+    comprobarVictoria();
+    if (victoria == true) {
+        resultado.innerHTML = "<p>Felicidades ganaste tu palabra era " + palabra + "</p>"
+    }
     if (contador == 0) {
+        letrasUsadas.push(tecla);
         error();
         intentos.innerHTML = oportunidades + "/6";
         if (oportunidades == 6) {
@@ -234,24 +252,39 @@ document.addEventListener('keydown', function (e){
         }
     }
 })
+
 function arrayLetras(letra) {
     if (oportunidades == 6) {
-    } else {
-        for(let i = 0; i < letrasUsadas.length; i++){
-            if (letra == letrasUsadas[i]) {
-            resultado.innerHTML += " " + letra
-            break;
-            }
-    };
-}}
+        return
+    } 
+    resultado.innerHTML += " " + letra    
+}
+
+// Colocar la letra en el ___
 function insertarLetra(letra) {
     if (oportunidades == 6) {
-
+        return
     } else {
     for(let i = 0; i < palabra.length; i++) {
-        let letraI = document.querySelector("#letra" + i)
+        let letraI = document.querySelector("#letra" + i);
         if (palabra[i] == letra) {
             letraI.innerHTML = palabra[i];
         }
     }}
+}
+
+// Comprobar la victoria
+function comprobarVictoria() {
+    victoria = true
+    let palabrasVacias = 0;
+    for(let i = 0; i < palabra.length; i++) {
+        let letraI = document.querySelector("#letra" + i);
+        if (letraI.textContent == "") {
+            palabrasVacias++;
+        }
+    }
+    if (palabrasVacias > 0) {
+        victoria = false;
+    }
+    return victoria
 }
