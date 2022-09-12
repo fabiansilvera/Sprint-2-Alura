@@ -22,19 +22,23 @@ const botonNuevaPalabra = document.querySelector("#agregar-palabra")
 const nuevaPalabra = document.querySelector("#nuevaPalabra"); 
 const resultado = document.querySelector(".resultado")
 
+// mensaje de palabra agregada
+const mensajePalabraAgregada = document.querySelector("#maximo-caracteres"); 
+
 // Variable de intentos de html y contadores
 let intentos = document.querySelector(".oportunidades");
 let oportunidades = 0;
 
 // variables de la palabra
 const contenedorPalabra = document.querySelector(".palabra");
-let palabras = ["QUESO","ROJO","HABLAR","HIPOTECA"];
+let palabras = ["QUESO","ROJO","HABLAR","DESAFIO","GATO","GUIÑO","PERSONA","OCULTO"];
 let palabra = randomWord();
 let letrasUsadas = [];    
 let victoria = false;
 
-// Teclado
-var teclado = document.querySelector(".teclado");
+// Teclado web
+var teclado = document.querySelectorAll(".key");
+
 // Comprobacion de la A a la Z
 const isAZ = RegExp('[A-ZÑa-zñ]');
 
@@ -45,7 +49,9 @@ botonDesistir.onclick = desistir;
 botonNuevaPalabra.onclick = mostrarAgregarPalabra;
 volverPalabra.onclick = desistir;
 nuevaPalabra.onclick = agregarPalabra;
-reiniciar.addEventListener ('click' , function() {
+reiniciar.onclick = reiniciarPartida
+// Reiniciar o salir del juego
+function reiniciarPartida() {
     nuevoJuego();
     palabra = randomWord();
     contenedorPalabra.innerHTML = "";
@@ -55,15 +61,41 @@ reiniciar.addEventListener ('click' , function() {
     intentos.innerHTML = oportunidades + "/6";
     resultado.innerHTML = "";
     victoria = false;
-})
+}
+
 // agregar palabra a la lista
 function agregarPalabra() {
     let contenido = document.querySelector(".text-area");
     contenidoMayuscula = contenido.value.toUpperCase();
-    if (contenidoMayuscula.length > 3 && contenidoMayuscula.length < 10) {
+    if (contenidoMayuscula.length > 2 && contenidoMayuscula.length < 10 && isAZ.test(contenidoMayuscula)) {
     palabras.push(contenidoMayuscula);
+    mostrarCorrecto()
+    } else {
+        mostrarError()
     }
     contenido.value = ""
+}
+// Avisar si la palabra se agrego
+function mostrarCorrecto() {
+    const correcto = document.createElement('P')
+    correcto.textContent = "Su palabra se ingreso correctamente";
+    correcto.classList.add('correcto');
+
+    mensajePalabraAgregada.appendChild(correcto);
+    setTimeout(()=>{
+        correcto.remove();
+    }, 2000);
+}
+// Avisar si no se pudo agregar la palabra
+function mostrarError() {
+    const error = document.createElement('P')
+    error.textContent = "La palabra debe tener entre 3 y 9 caracteres y sin caracteres especiales";
+    error.classList.add('error');
+
+    mensajePalabraAgregada.appendChild(error);
+    setTimeout(()=>{
+        error.remove();
+    }, 2000);
 }
 // mostrar el menu agregar palabra
 function mostrarAgregarPalabra() {
@@ -75,6 +107,7 @@ function desistir() {
     main.style.display = "none";
     menuNuevaPalabra.style.display = "none";
     menuPrincipal.style.display = "flex";
+    reiniciarPartida()
 };
 // Crear la palabra debajo del horcado
 function crearPalabra() {
@@ -215,12 +248,21 @@ function error() {
 // Palabra random
 function randomWord() {
     return palabras[Math.floor(Math.random() * (palabras.length))].toUpperCase();
-  }
-
-
-// Accion del teclado
+}
+// Accion del teclado fisico
 document.addEventListener('keydown', function (e){
     let tecla = e.key.toUpperCase();
+    teclaFuncion(tecla)   
+})
+// Accion teclado web on click
+for (teclas of teclado){
+    teclas.addEventListener('click', function(e) {
+        const elemento = e.target.textContent;
+        teclaFuncion(elemento);
+    })
+}
+// Accion de las teclas
+function teclaFuncion(tecla) {
     let contador = 0;
     if (tecla.length > 1 || !isAZ.test(tecla) || victoria == true){ 
         return;
@@ -251,15 +293,14 @@ document.addEventListener('keydown', function (e){
             resultado.innerHTML = "<p>Perdiste intentalo la proxima tu palabra era " + palabra + "</p>"
         }
     }
-})
-
+}
+// Mostrar letras usadas
 function arrayLetras(letra) {
     if (oportunidades == 6) {
         return
     } 
     resultado.innerHTML += " " + letra    
 }
-
 // Colocar la letra en el ___
 function insertarLetra(letra) {
     if (oportunidades == 6) {
@@ -272,7 +313,6 @@ function insertarLetra(letra) {
         }
     }}
 }
-
 // Comprobar la victoria
 function comprobarVictoria() {
     victoria = true
@@ -288,3 +328,6 @@ function comprobarVictoria() {
     }
     return victoria
 }
+
+
+

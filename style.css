@@ -66,6 +66,25 @@ body {
     height: 8rem;
     margin-bottom: 2rem;
 }
+#maximo-caracteres {
+    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    font-weight: bold;
+}
+.error {
+    background-color: #e83733;
+    padding: 2rem;
+    border-radius: 20px;
+    margin: 1rem 0 0 0;
+    
+}
+.correcto {
+    background-color: #60a862;
+    padding: 1.5rem;
+    border-radius: 20px;
+    margin: 1rem 0 0 0;
+}
 #menu-principal {
     display: flex;
     flex-direction: column;
@@ -128,7 +147,7 @@ body {
     gap: 2rem;
     margin: 2rem 1rem;
 }
-.fila div{
+.fila p{
     display: flex;
     border: 2px solid black;
     width: 6rem;
@@ -136,32 +155,30 @@ body {
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 120, 0,0.7);
+    font-size: 3rem;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
 }
 @media (max-width: 767px) {
     .fila {
         gap: 1rem;
         margin: 1rem 5px;
     }
-    .fila div{
+    .fila p{
         width: 2.5rem;
         height: 3rem;
     }
-}
-.fila p {
-    font-size: 3rem;
-    font-weight: bold;
-    font-family: 'Courier New', Courier, monospace;
 }
 @media (max-width: 767px) {
     .fila p {
         font-size: 1.5rem;
     }
 }
-.fila div:hover {
+.fila p:hover {
     cursor: pointer;
     transform: scale(1.2);
 }
-.fila div:active {
+.fila p:active {
     background-color: green;
 }
 .botones {
