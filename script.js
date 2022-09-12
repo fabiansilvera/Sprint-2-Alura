@@ -67,7 +67,13 @@ function reiniciarPartida() {
 function agregarPalabra() {
     let contenido = document.querySelector(".text-area");
     contenidoMayuscula = contenido.value.toUpperCase();
-    if (contenidoMayuscula.length > 2 && contenidoMayuscula.length < 10 && isAZ.test(contenidoMayuscula)) {
+    for (let i = 0; i < contenidoMayuscula.length; i++) {
+        if (!isAZ.test(contenidoMayuscula[i])) {
+            mostrarError();
+            return;
+        }
+    }
+    if (contenidoMayuscula.length > 2 && contenidoMayuscula.length < 10) {
     palabras.push(contenidoMayuscula);
     mostrarCorrecto()
     } else {
@@ -272,7 +278,6 @@ function teclaFuncion(tecla) {
             return;
         }
     }
-    arrayLetras(tecla);
     for (let i = 0; palabra.length > i; i++) {
         if (palabra[i] == tecla && contador == 0) {
             contador++;
@@ -288,6 +293,7 @@ function teclaFuncion(tecla) {
     if (contador == 0) {
         letrasUsadas.push(tecla);
         error();
+        arrayLetras(tecla);
         intentos.innerHTML = oportunidades + "/6";
         if (oportunidades == 6) {
             resultado.innerHTML = "<p>Perdiste intentalo la proxima tu palabra era " + palabra + "</p>"
